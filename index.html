@@ -93,16 +93,132 @@
       e.preventDefault();
       let output = document.querySelector('output');
       let firstNum = document.querySelector('#first-num').value;
+      try {
+        eval(`${firstNum} * 1.0`)
+        console.log("Your first input was valid");
+      }
+      catch (err){
+        throw new SyntaxError("Your first input was invalid")
+
+      }
+      finally{
+        console.log("Finished processing the first input");
+      }
+
       let secondNum = document.querySelector('#second-num').value;
+      try {
+        eval(`${secondNum} * 1.0`)
+        console.log("Your second input was valid");
+      }
+      catch (err){
+        throw new InvalidInput("Your second input was invalid")
+
+      }
+      finally{
+        console.log("Finished processing the second input");
+      }
+
       let operator = document.querySelector('#operator').value;
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
-    // Start your code here
-    // You may move this JS to another file if you wish
-  </script>
+    errorBtns[0].addEventListener('click', () => {
+      console.log("Demo Console Logging")
+    })
+
+    errorBtns[1].addEventListener('click', () => {
+      console.error("Demo Console Error")
+    })
+
+    errorBtns[2].addEventListener('click', () => {
+      console.count("Console")
+    })
+
+    errorBtns[3].addEventListener('click', () => {
+      console.warn("Demo Console Warning")
+    })
+
+    errorBtns[4].addEventListener('click', () => {
+      console.assert(2+2==5); 
+    })
+
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    })
+
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(document.head);
+    })
+
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(document);
+    })
+
+    errorBtns[8].addEventListener('click', () => {
+      console.group("My Demo Console Group");
+    })
+
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd("My Demo Console Group");
+    })
+
+    errorBtns[10].addEventListener('click', () => {
+      console.table([
+      {
+    value: 'Console',
+    info: 'demo',
+    },
+    {
+    value: 'is',
+    info: 'very',
+    key: 'cool',
+    }
+    ])})
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time("Time untill you pressed stop");
+    })
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd("Time untill you pressed stop");
+    })
+
+    errorBtns[14].addEventListener('click', () => {
+      const hello = "hello"
+      hello = "hi"
+    })
+
+    /* code taken from https://developer.chrome.com/docs/devtools/console/api/ */
+    errorBtns[13].addEventListener('click', () => {
+      const first = () => { second(); };
+      const second = () => { third(); };
+      const third = () => { console.trace(); };
+      first()
+    })
+
+    class InvalidInput extends Error {
+    constructor(message) {
+    super(message);
+    this.name = "InvalidInput";
+    }
+  }
+
+  window.onerror = function (error,url,lineNumber) { 
+    console.log(error);
+    console.log(url);
+    console.log(lineNumber)}
+
+</script>
+
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "63cf82886c774731b74826375095382a"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
 </body>
 
 </html>
